@@ -9,7 +9,7 @@
     <!-- box icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="./css/Style.css" />
+    <link rel="stylesheet" href="/css/Style.css" />
 
 <!-- ajax script -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -266,14 +266,14 @@
     <section class="contact" id="contact">
       <h2 class="heading">Contact <span>Me!</span></h2>
 
-      <form id="submit-form" action="">
+      <form id="submit-form" action="" name="submit-to-google-sheet">
           <div class="input-box">
               <div class="input-field">
                   <input type="text" name="username" id="name" placeholder="Full Name*" required name="FullName">
                   <span class="focus"></span>
               </div>
               <div class="input-field">
-                  <input type="email" placeholder="Email Address*(name@example.com)" required name="Email">
+                  <input type="email" name="email" placeholder="Email Address*(name@example.com)" required name="Email">
                   <span class="focus"></span>
               </div>
           </div>
@@ -284,7 +284,7 @@
                   <span class="focus"></span>
               </div>
               <div class="input-field">
-                  <input type="text" placeholder="Email Subject*" required name="Subject">
+                  <input type="text" name="subject" placeholder="Email Subject*" required name="Subject">
                   <span class="focus"></span>
               </div>
           </div>
@@ -327,5 +327,16 @@
 
     <!-- custom js -->
     <script src="script.js"></script>
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbxeAZeTGLv077FlYtoyQM4gSQmStXxupZ_XHRGI0PKFVJyLY7GutpWB9Jhgg7yWYrQr/exec'
+      const form = document.forms['submit-to-google-sheet']
+    
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => console.log('Success!', response))
+          .catch(error => console.error('Error!', error.message))
+      })
+    </script>
   </body>
 </html>
